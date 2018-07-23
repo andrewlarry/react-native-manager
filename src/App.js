@@ -1,0 +1,34 @@
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import firebase from 'firebase';
+
+import firebaseConfig from '../config/firebase.json';
+import reducers from './reducers';
+
+const store = createStore(reducers);
+
+class App extends Component {
+
+  componentWillMount() {
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) this.setState({ loggedIn: true });
+      else this.setState({ loggedIn: false });
+    });
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View>
+          <Text>Hello World</Text>
+        </View>
+      </Provider>
+    );
+  }
+}
+
+export default App;

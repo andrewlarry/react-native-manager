@@ -2,6 +2,9 @@
 #
 .DS_Store
 
+# Ignore config folder
+config/
+
 # Xcode
 #
 build/
